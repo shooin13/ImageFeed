@@ -32,14 +32,6 @@ private extension ImagesListViewController {
     let isLIked = indexPath.row % 2 == 0
     
     cell.configure(image: image, date: dateFormatter.string(from: Date()), isLiked: isLIked)
-//
-//    cell.cellImage.image = image
-//    
-//    cell.dateLabel.text = dateFormatter.string(from: Date())
-    
-//    let isLIked = indexPath.row % 2 == 0
-//    let likeImage = isLIked ? UIImage(named: "likeButtonInactive") : UIImage(named: "likeButtonActive")
-//    cell.likeButton.setImage(likeImage, for: .normal)
   }
 }
 
@@ -52,7 +44,6 @@ extension ImagesListViewController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reusedIdentifier, for: indexPath)
     
     guard let imageListCell = cell as? ImagesListCell else {
-      print("Cells returned empty")
       return UITableViewCell()
     }
     configCell(for: imageListCell, with: indexPath)
@@ -67,16 +58,16 @@ extension ImagesListViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-    return false
+    guard let selectedCell: UITableViewCell = tableView.cellForRow(at: indexPath) else { return true }
+    selectedCell.contentView.backgroundColor = UIColor(named: "YPBlack")
+    return true
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     guard let image = UIImage(named: photosName[indexPath.row]) else {
-      print("returns 0")
       return 0
     }
     
-    print("calculates size")
     let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
     let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
     let imageWidth = image.size.width
