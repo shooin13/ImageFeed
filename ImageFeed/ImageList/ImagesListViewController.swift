@@ -26,14 +26,20 @@ final class ImagesListViewController: UIViewController {
 
 private extension ImagesListViewController {
   private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+    
+    
     guard let image = UIImage(named: photosName[indexPath.row]) else { return }
-    cell.cellImage.image = image
-    
-    cell.dateLabel.text = dateFormatter.string(from: Date())
-    
     let isLIked = indexPath.row % 2 == 0
-    let likeImage = isLIked ? UIImage(named: "likeButtonInactive") : UIImage(named: "likeButtonActive")
-    cell.likeButton.setImage(likeImage, for: .normal)
+    
+    cell.configure(image: image, date: dateFormatter.string(from: Date()), isLiked: isLIked)
+//
+//    cell.cellImage.image = image
+//    
+//    cell.dateLabel.text = dateFormatter.string(from: Date())
+    
+//    let isLIked = indexPath.row % 2 == 0
+//    let likeImage = isLIked ? UIImage(named: "likeButtonInactive") : UIImage(named: "likeButtonActive")
+//    cell.likeButton.setImage(likeImage, for: .normal)
   }
 }
 
