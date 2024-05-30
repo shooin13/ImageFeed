@@ -103,7 +103,7 @@
                             <constraint firstItem="aS5-Lz-cN9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="kbS-QQ-eC4"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" image="tab_editorial_active" id="677-7K-aRV"/>
+                    <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="677-7K-aRV"/>
                     <navigationItem key="navigationItem" id="hFT-Sn-CLB"/>
                     <connections>
                         <outlet property="tableView" destination="aS5-Lz-cN9" id="69K-G6-CUI"/>
