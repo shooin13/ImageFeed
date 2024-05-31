@@ -164,7 +164,7 @@
                         <color key="backgroundColor" name="YPBlack"/>
                         <constraints>
                             <constraint firstItem="YYQ-cs-FpA" firstAttribute="bottom" secondItem="LZe-Zl-K4F" secondAttribute="bottom" constant="17" id="2In-EN-Q0U"/>
-                            <constraint firstAttribute="bottom" secondItem="B7G-Ew-DAd" secondAttribute="bottom" id="AWi-4k-iNN"/>
+                            <constraint firstItem="B7G-Ew-DAd" firstAttribute="bottom" secondItem="BKH-DS-1vQ" secondAttribute="bottom" id="AWi-4k-iNN"/>
                             <constraint firstItem="VJl-Sb-2bm" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="YYQ-cs-FpA" secondAttribute="trailing" symbolic="YES" id="aSW-96-nUe"/>
                             <constraint firstItem="VJl-Sb-2bm" firstAttribute="top" secondItem="YYQ-cs-FpA" secondAttribute="top" constant="11" id="cMj-Q8-alv"/>
                             <constraint firstItem="B7G-Ew-DAd" firstAttribute="trailing" secondItem="BKH-DS-1vQ" secondAttribute="trailing" id="ehL-Am-DWF"/>
