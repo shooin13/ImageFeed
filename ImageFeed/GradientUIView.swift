@@ -2,7 +2,7 @@ import UIKit
 
 final class GradientUIView: UIView {
   private let gradientLayer = CAGradientLayer()
-  private let maskLayer = CAShapeLayer() // Добавляем новый слой для маски
+  private let maskLayer = CAShapeLayer() 
   
   override init(frame: CGRect) {
     super.init(frame: frame)

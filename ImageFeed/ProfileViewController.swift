@@ -2,11 +2,6 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
   
-  //  @IBOutlet private weak var profileImageView: UIImageView!
-  //  @IBOutlet private weak var nameLabel: UILabel!
-  //  @IBOutlet private weak var nickLabel: UILabel!
-  //  @IBOutlet private weak var userTextLabel: UILabel!
-  
   private weak var profileImageView: UIImageView?
   private weak var exitButton: UIButton?
   private weak var nameLabel: UILabel?
@@ -30,7 +25,6 @@ final class ProfileViewController: UIViewController {
     let imageView = UIImageView()
     imageView.image = UIImage(named: "profilePicture")
     imageView.translatesAutoresizingMaskIntoConstraints = false
-    
     imageView.layer.cornerRadius = 35
     imageView.layer.masksToBounds = true
     
@@ -78,8 +72,8 @@ final class ProfileViewController: UIViewController {
     view.addSubview(name)
     
     NSLayoutConstraint.activate([
-            name.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8),
-            name.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+      name.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8),
+      name.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
     ])
     nameLabel = name
   }
@@ -103,7 +97,6 @@ final class ProfileViewController: UIViewController {
       nick.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
     ])
     nickLabel = nick
-    
   }
   
   private func configureUserTextLabel() {
@@ -114,7 +107,6 @@ final class ProfileViewController: UIViewController {
     text.text = "Hello, Praktikum"
     text.font = UIFont.systemFont(ofSize: 13)
     text.textColor = .white
-    
     text.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(text)

@@ -45,7 +45,6 @@ final class ImagesListViewController: UIViewController {
 private extension ImagesListViewController {
   private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
     
-    
     guard let image = UIImage(named: photosName[indexPath.row]) else { return }
     let isLIked = indexPath.row % 2 == 0
     

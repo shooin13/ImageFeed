@@ -28,7 +28,6 @@ final class SingleImageViewController: UIViewController {
     self.present(activityViewController, animated: true)
   }
   
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupInterface()
