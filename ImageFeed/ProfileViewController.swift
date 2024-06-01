@@ -2,11 +2,11 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
   
-  private weak var profileImageView: UIImageView?
-  private weak var exitButton: UIButton?
-  private weak var nameLabel: UILabel?
-  private weak var nickLabel: UILabel?
-  private weak var userTextLabel: UILabel?
+  private var profileImageView = UIImageView()
+  private var exitButton = UIButton()
+  private var nameLabel = UILabel()
+  private var nickLabel = UILabel()
+  private var userTextLabel = UILabel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -22,100 +22,78 @@ final class ProfileViewController: UIViewController {
   }
   
   private func configureProfileImageView() {
-    let imageView = UIImageView()
-    imageView.image = UIImage(named: "profilePicture")
-    imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.layer.cornerRadius = 35
-    imageView.layer.masksToBounds = true
+    profileImageView.image = UIImage(named: "profilePicture")
+    profileImageView.translatesAutoresizingMaskIntoConstraints = false
+    profileImageView.layer.cornerRadius = 35
+    profileImageView.layer.masksToBounds = true
     
-    view.addSubview(imageView)
+    view.addSubview(profileImageView)
     
     NSLayoutConstraint.activate([
-      imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
-      imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-      imageView.widthAnchor.constraint(equalToConstant: 70),
-      imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor)
+      profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+      profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+      profileImageView.widthAnchor.constraint(equalToConstant: 70),
+      profileImageView.heightAnchor.constraint(equalTo: profileImageView.widthAnchor)
     ])
-    profileImageView = imageView
   }
   
   private func configureExitButtonView() {
-    guard let profileImageView else { return }
-    let button = UIButton()
-    button.setImage(UIImage(named: "exitButton"), for: .normal)
-    button.translatesAutoresizingMaskIntoConstraints = false
+    exitButton.setImage(UIImage(named: "exitButton"), for: .normal)
+    exitButton.translatesAutoresizingMaskIntoConstraints = false
     
-    view.addSubview(button)
+    view.addSubview(exitButton)
     
     NSLayoutConstraint.activate([
-      button.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
-      button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-      button.widthAnchor.constraint(equalToConstant: 24),
-      button.heightAnchor.constraint(equalTo: button.widthAnchor)
+      exitButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
+      exitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+      exitButton.widthAnchor.constraint(equalToConstant: 24),
+      exitButton.heightAnchor.constraint(equalTo: exitButton.widthAnchor)
     ])
-    
-    exitButton = button
   }
   
   private func configureNameLabel() {
     
-    guard let profileImageView else { return }
+    nameLabel.text = "Павел Николаев"
+    nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
+    nameLabel.textColor = .white
     
-    let name = UILabel()
+    nameLabel.translatesAutoresizingMaskIntoConstraints = false
     
-    name.text = "Павел Николаев"
-    name.font = UIFont.boldSystemFont(ofSize: 23)
-    name.textColor = .white
-    
-    name.translatesAutoresizingMaskIntoConstraints = false
-    
-    view.addSubview(name)
+    view.addSubview(nameLabel)
     
     NSLayoutConstraint.activate([
-      name.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8),
-      name.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+      nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8),
+      nameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
     ])
-    nameLabel = name
   }
   
   private func configureNickLabel() {
+    nickLabel.text = "@the314"
+    nickLabel.font = UIFont.systemFont(ofSize: 13)
+    nickLabel.textColor = UIColor(red: 174/255, green: 175/255, blue: 180/255, alpha: 1)
     
-    guard let profileImageView, let nameLabel else { return }
+    nickLabel.translatesAutoresizingMaskIntoConstraints = false
     
-    let nick = UILabel()
-    
-    nick.text = "@the314"
-    nick.font = UIFont.systemFont(ofSize: 13)
-    nick.textColor = UIColor(red: 174/255, green: 175/255, blue: 180/255, alpha: 1)
-    
-    nick.translatesAutoresizingMaskIntoConstraints = false
-    
-    view.addSubview(nick)
+    view.addSubview(nickLabel)
     
     NSLayoutConstraint.activate([
-      nick.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-      nick.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+      nickLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+      nickLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
     ])
-    nickLabel = nick
   }
   
   private func configureUserTextLabel() {
-    guard let profileImageView, let nickLabel else { return }
+    userTextLabel.text = "Hello, Praktikum"
+    userTextLabel.font = UIFont.systemFont(ofSize: 13)
+    userTextLabel.textColor = .white
+    userTextLabel.translatesAutoresizingMaskIntoConstraints = false
     
-    let text = UILabel()
-    
-    text.text = "Hello, Praktikum"
-    text.font = UIFont.systemFont(ofSize: 13)
-    text.textColor = .white
-    text.translatesAutoresizingMaskIntoConstraints = false
-    
-    view.addSubview(text)
+    view.addSubview(userTextLabel)
     
     NSLayoutConstraint.activate([
-      text.topAnchor.constraint(equalTo: nickLabel.bottomAnchor, constant: 8),
-      text.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+      userTextLabel.topAnchor.constraint(equalTo: nickLabel.bottomAnchor, constant: 8),
+      userTextLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
     ])
-    userTextLabel = text
   }
 }
 
