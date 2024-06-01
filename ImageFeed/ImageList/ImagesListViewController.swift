@@ -4,6 +4,8 @@ final class ImagesListViewController: UIViewController {
   
   private let photosName: [String] = Array(0..<20).map{"\($0)"}
   
+  private let showSingleImageIdentifier = "ShowSingleImage"
+  
   private lazy var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .long
@@ -22,18 +24,31 @@ final class ImagesListViewController: UIViewController {
     tableView.rowHeight = 200
     tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
   }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == showSingleImageIdentifier {
+      guard
+        let viewController = segue.destination as? SingleImageViewController,
+        let indexPath = sender as? IndexPath
+      else {
+        assertionFailure("Invalid Segue Identifier")
+        return
+      }
+      let image = UIImage(named: photosName[indexPath.row])
+      viewController.image = image
+    } else {
+      super.prepare(for: segue, sender: sender)
+    }
+  }
 }
 
 private extension ImagesListViewController {
   private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
+    
     guard let image = UIImage(named: photosName[indexPath.row]) else { return }
-    cell.cellImage.image = image
-    
-    cell.dateLabel.text = dateFormatter.string(from: Date())
-    
     let isLIked = indexPath.row % 2 == 0
-    let likeImage = isLIked ? UIImage(named: "likeButtonInactive") : UIImage(named: "likeButtonActive")
-    cell.likeButton.setImage(likeImage, for: .normal)
+    
+    cell.configure(image: image, date: dateFormatter.string(from: Date()), isLiked: isLIked)
   }
 }
 
@@ -46,7 +61,6 @@ extension ImagesListViewController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: ImagesListCell.reusedIdentifier, for: indexPath)
     
     guard let imageListCell = cell as? ImagesListCell else {
-      print("Cells returned empty")
       return UITableViewCell()
     }
     configCell(for: imageListCell, with: indexPath)
@@ -57,20 +71,21 @@ extension ImagesListViewController: UITableViewDataSource {
 extension ImagesListViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    performSegue(withIdentifier: showSingleImageIdentifier, sender: indexPath)
     
   }
   
   func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-    return false
+    guard let selectedCell: UITableViewCell = tableView.cellForRow(at: indexPath) else { return true }
+    selectedCell.contentView.backgroundColor = UIColor(named: "YPBlack")
+    return true
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     guard let image = UIImage(named: photosName[indexPath.row]) else {
-      print("returns 0")
       return 0
     }
     
-    print("calculates size")
     let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
     let imageViewWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
     let imageWidth = image.size.width
