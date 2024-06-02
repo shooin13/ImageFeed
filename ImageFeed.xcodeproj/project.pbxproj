@@ -16,6 +16,7 @@
 		573F2DD22BE576B000EE0D3B /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 573F2DD12BE576B000EE0D3B /* Base */; };
 		577D05A22BE6BC8B00874169 /* GradientUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577D05A12BE6BC8B00874169 /* GradientUIView.swift */; };
 		577FCE662BFFD304006B4636 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577FCE652BFFD304006B4636 /* SingleImageViewController.swift */; };
+		57A073EF2C0CCDA000963D62 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A073EE2C0CCDA000963D62 /* Constants.swift */; };
 		57EA29F02BFFB2DA007E73FF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57EA29EF2BFFB2DA007E73FF /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		573F2DD32BE576B000EE0D3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		577D05A12BE6BC8B00874169 /* GradientUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientUIView.swift; sourceTree = "<group>"; };
 		577FCE652BFFD304006B4636 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		57A073EE2C0CCDA000963D62 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		57EA29EF2BFFB2DA007E73FF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				577D05A12BE6BC8B00874169 /* GradientUIView.swift */,
+				57A073EE2C0CCDA000963D62 /* Constants.swift */,
 				573F2DC52BE576AF00EE0D3B /* AppDelegate.swift */,
 				573F2DC72BE576AF00EE0D3B /* SceneDelegate.swift */,
 				57EA29EF2BFFB2DA007E73FF /* ProfileViewController.swift */,
@@ -165,6 +168,7 @@
 				577D05A22BE6BC8B00874169 /* GradientUIView.swift in Sources */,
 				573F2DC62BE576AF00EE0D3B /* AppDelegate.swift in Sources */,
 				573F2DC82BE576AF00EE0D3B /* SceneDelegate.swift in Sources */,
+				57A073EF2C0CCDA000963D62 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
