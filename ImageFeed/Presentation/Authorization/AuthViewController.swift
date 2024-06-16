@@ -34,8 +34,8 @@ final class AuthViewController: UIViewController {
     NSLayoutConstraint.activate([
       unsplashLogoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
       unsplashLogoImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-      unsplashLogInButton.widthAnchor.constraint(equalToConstant: 60),
-      unsplashLogInButton.heightAnchor.constraint(equalTo: unsplashLogInButton.widthAnchor)
+      unsplashLogoImageView.widthAnchor.constraint(equalToConstant: 60),
+      unsplashLogoImageView.heightAnchor.constraint(equalTo: unsplashLogoImageView.widthAnchor)
     ])
   }
   
