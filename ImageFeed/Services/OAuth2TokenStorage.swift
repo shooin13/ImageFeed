@@ -1,7 +1,14 @@
 import Foundation
 
+// MARK: - OAuth2TokenStorage
+
 final class OAuth2TokenStorage {
+  
+  // MARK: - Private Properties
+  
   private let tokenKey = "OAuth2Token"
+  
+  // MARK: - Public Properties
   
   var token: String? {
     get {

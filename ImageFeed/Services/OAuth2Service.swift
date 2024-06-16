@@ -1,27 +1,39 @@
 import Foundation
 
+// MARK: - OAuth2Service
+
 final class OAuth2Service {
-  
   static let shared = OAuth2Service()
+  
+  // MARK: - Initializer
   
   private init() {}
   
+  // MARK: - Private Methods
+  
   private func makeOauthTokenRequest(code: String) -> URLRequest {
+    guard var baseUrlComponent = URLComponents(string: "https://unsplash.com/oauth/token") else {
+      fatalError("Failed to create baseUrlComponent")
+    }
     
-    guard var baseUrlComponent = URLComponents(string: "https://unsplash.com/oauth/token") else { fatalError("Failed to create baseUrlComponent") }
+    baseUrlComponent.queryItems = [
+      URLQueryItem(name: "client_id", value: Constants.accessKey),
+      URLQueryItem(name: "client_secret", value: Constants.secretKey),
+      URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
+      URLQueryItem(name: "code", value: code),
+      URLQueryItem(name: "grant_type", value: "authorization_code")
+    ]
     
-    baseUrlComponent.queryItems = [URLQueryItem(name: "client_id", value: Constants.accessKey),
-                                   URLQueryItem(name: "client_secret", value: Constants.secretKey),
-                                   URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
-                                   URLQueryItem(name: "code", value: code),
-                                   URLQueryItem(name: "grant_type", value: "authorization_code")]
-    
-    guard let url = baseUrlComponent.url else { fatalError("Failed to create URL from baseUrlComponent") }
+    guard let url = baseUrlComponent.url else {
+      fatalError("Failed to create URL from baseUrlComponent")
+    }
     
     var request = URLRequest(url: url)
     request.httpMethod = "POST"
     return request
   }
+  
+  // MARK: - Public Methods
   
   func fetchOAuthToken(code: String, handler: @escaping (Result<String, Error>) -> Void) {
     let request = makeOauthTokenRequest(code: code)
@@ -42,6 +54,6 @@ final class OAuth2Service {
         print("Failed to fetch OAuth token: \(error)")
       }
     }
-    // `task.resume()` уже вызывается внутри метода `data(for:completion:)`
+    task.resume()
   }
 }

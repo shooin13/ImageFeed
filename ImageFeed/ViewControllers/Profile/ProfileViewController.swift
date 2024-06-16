@@ -1,6 +1,10 @@
 import UIKit
 
+// MARK: - ProfileViewController
+
 final class ProfileViewController: UIViewController {
+  
+  // MARK: - Private Properties
   
   private var profileImageView = UIImageView()
   private var exitButton = UIButton()
@@ -8,10 +12,14 @@ final class ProfileViewController: UIViewController {
   private var nickLabel = UILabel()
   private var userTextLabel = UILabel()
   
+  // MARK: - Lifecycle Methods
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     configureUI()
   }
+  
+  // MARK: - Private Methods
   
   private func configureUI() {
     configureProfileImageView()
@@ -52,18 +60,16 @@ final class ProfileViewController: UIViewController {
   }
   
   private func configureNameLabel() {
-    
     nameLabel.text = "Павел Николаев"
     nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
     nameLabel.textColor = .white
-    
     nameLabel.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(nameLabel)
     
     NSLayoutConstraint.activate([
       nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 8),
-      nameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+      nameLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor)
     ])
   }
   
@@ -71,14 +77,13 @@ final class ProfileViewController: UIViewController {
     nickLabel.text = "@the314"
     nickLabel.font = UIFont.systemFont(ofSize: 13)
     nickLabel.textColor = UIColor(red: 174/255, green: 175/255, blue: 180/255, alpha: 1)
-    
     nickLabel.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(nickLabel)
     
     NSLayoutConstraint.activate([
       nickLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-      nickLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+      nickLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor)
     ])
   }
   
@@ -92,8 +97,7 @@ final class ProfileViewController: UIViewController {
     
     NSLayoutConstraint.activate([
       userTextLabel.topAnchor.constraint(equalTo: nickLabel.bottomAnchor, constant: 8),
-      userTextLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor),
+      userTextLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor)
     ])
   }
 }
-

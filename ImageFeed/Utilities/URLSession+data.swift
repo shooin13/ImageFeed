@@ -1,12 +1,19 @@
 import Foundation
 
+// MARK: - NetworkError
+
 enum NetworkError: Error {
   case httpStatusCode(Int)
   case urlRequestError(Error)
   case urlSessionError
 }
 
+// MARK: - URLSession Extension
+
 extension URLSession {
+  
+  // MARK: - Public Methods
+  
   func data(
     for request: URLRequest,
     completion: @escaping (Result<Data, Error>) -> Void
@@ -17,7 +24,7 @@ extension URLSession {
       }
     }
     
-    let task = dataTask(with: request, completionHandler: { data, response, error in
+    let task = dataTask(with: request) { data, response, error in
       if let data = data, let response = response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
         if 200 ..< 300 ~= statusCode {
           fulfillCompletionOnTheMainThread(.success(data))
@@ -29,7 +36,7 @@ extension URLSession {
       } else {
         fulfillCompletionOnTheMainThread(.failure(NetworkError.urlSessionError))
       }
-    })
+    }
     
     return task
   }
