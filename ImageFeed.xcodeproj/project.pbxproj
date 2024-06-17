@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5716FDA12C20C52F00C8209B /* SnakeCaseJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5716FDA02C20C52F00C8209B /* SnakeCaseJSONDecoder.swift */; };
 		571B88D02BE6993200CBFB5E /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571B88CF2BE6993200CBFB5E /* ImagesListCell.swift */; };
 		573E00AF2C1F31E200C97C9E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573E00AE2C1F31E200C97C9E /* SplashViewController.swift */; };
 		573F2DC62BE576AF00EE0D3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F2DC52BE576AF00EE0D3B /* AppDelegate.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5716FDA02C20C52F00C8209B /* SnakeCaseJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeCaseJSONDecoder.swift; sourceTree = "<group>"; };
 		571B88CF2BE6993200CBFB5E /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		573E00AE2C1F31E200C97C9E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		573F2DC22BE576AF00EE0D3B /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 			children = (
 				57A073EE2C0CCDA000963D62 /* Constants.swift */,
 				57AD520D2C1F0A4E0072DECE /* URLSession+data.swift */,
+				5716FDA02C20C52F00C8209B /* SnakeCaseJSONDecoder.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				574A33702C15C2FA0056BDF9 /* WebViewViewController.swift in Sources */,
 				57EA29F02BFFB2DA007E73FF /* ProfileViewController.swift in Sources */,
 				573F2DCA2BE576AF00EE0D3B /* ImagesListViewController.swift in Sources */,
+				5716FDA12C20C52F00C8209B /* SnakeCaseJSONDecoder.swift in Sources */,
 				57AD520A2C1EFE050072DECE /* OAuth2Service.swift in Sources */,
 				571B88D02BE6993200CBFB5E /* ImagesListCell.swift in Sources */,
 				57AD52102C1F0ECF0072DECE /* OAuthTokenResponseBody.swift in Sources */,

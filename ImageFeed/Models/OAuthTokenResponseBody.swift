@@ -11,9 +11,9 @@ struct OAuthTokenResponseBody: Codable {
   // MARK: - CodingKeys
   
   enum CodingKeys: String, CodingKey {
-    case accessToken = "access_token"
-    case tokenType = "token_type"
+    case accessToken = "accessToken"
+    case tokenType = "tokenType"
     case scope
-    case createdAt = "created_at"
+    case createdAt = "createdAt"
   }
 }
