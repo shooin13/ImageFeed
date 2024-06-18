@@ -1,10 +1,15 @@
 import UIKit
 
+// MARK: - ImagesListViewController
+
 final class ImagesListViewController: UIViewController {
   
-  private let photosName: [String] = Array(0..<20).map{"\($0)"}
+  // MARK: - Private Properties
   
+  private let photosName: [String] = Array(0..<20).map { "\($0)" }
   private let showSingleImageIdentifier = "ShowSingleImage"
+  
+  // MARK: - Lazy Properties
   
   private lazy var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -13,7 +18,11 @@ final class ImagesListViewController: UIViewController {
     return formatter
   }()
   
+  // MARK: - IBOutlets
+  
   @IBOutlet private weak var tableView: UITableView!
+  
+  // MARK: - Lifecycle Methods
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
@@ -24,6 +33,8 @@ final class ImagesListViewController: UIViewController {
     tableView.rowHeight = 200
     tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
   }
+  
+  // MARK: - Navigation
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == showSingleImageIdentifier {
@@ -40,21 +51,21 @@ final class ImagesListViewController: UIViewController {
       super.prepare(for: segue, sender: sender)
     }
   }
-}
-
-private extension ImagesListViewController {
+  
+  // MARK: - Private Methods
+  
   private func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
-    
     guard let image = UIImage(named: photosName[indexPath.row]) else { return }
-    let isLIked = indexPath.row % 2 == 0
-    
-    cell.configure(image: image, date: dateFormatter.string(from: Date()), isLiked: isLIked)
+    let isLiked = indexPath.row % 2 == 0
+    cell.configure(image: image, date: dateFormatter.string(from: Date()), isLiked: isLiked)
   }
 }
 
+// MARK: - UITableViewDataSource
+
 extension ImagesListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    photosName.count
+    return photosName.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,11 +79,11 @@ extension ImagesListViewController: UITableViewDataSource {
   }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ImagesListViewController: UITableViewDelegate {
-  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     performSegue(withIdentifier: showSingleImageIdentifier, sender: indexPath)
-    
   }
   
   func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {

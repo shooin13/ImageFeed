@@ -1,37 +1,47 @@
 import UIKit
 
+// MARK: - SingleImageViewController
+
 final class SingleImageViewController: UIViewController {
+  
+  // MARK: - Public Properties
   
   var image: UIImage? {
     didSet {
-        guard isViewLoaded, let image else { return }
-
-        imageView.image = image
-        imageView.frame.size = image.size
-        rescaleAndCenterImageInScrollView(image: image)
+      guard isViewLoaded, let image else { return }
+      imageView.image = image
+      imageView.frame.size = image.size
+      rescaleAndCenterImageInScrollView(image: image)
     }
   }
   
+  // MARK: - IBOutlets
+  
   @IBOutlet private weak var imageView: UIImageView!
   @IBOutlet private weak var scrollView: UIScrollView!
-  
   @IBOutlet private weak var shareButton: UIButton!
   
-  @IBAction func didTapBackButton(_ sender: Any) {
-    dismiss(animated: true, completion: nil)
-  }
-  
-  @IBAction func didTapShareButton(_ sender: Any) {
-    guard let image else { return }
-    let sharedImage = [image]
-    let activityViewController = UIActivityViewController(activityItems: sharedImage, applicationActivities: nil)
-    self.present(activityViewController, animated: true)
-  }
+  // MARK: - Lifecycle Methods
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupInterface()
   }
+  
+  // MARK: - IBActions
+  
+  @IBAction private func didTapBackButton(_ sender: Any) {
+    dismiss(animated: true, completion: nil)
+  }
+  
+  @IBAction private func didTapShareButton(_ sender: Any) {
+    guard let image else { return }
+    let sharedImage = [image]
+    let activityViewController = UIActivityViewController(activityItems: sharedImage, applicationActivities: nil)
+    present(activityViewController, animated: true)
+  }
+  
+  // MARK: - Private Methods
   
   private func setupInterface() {
     guard let image else { return }
@@ -62,6 +72,8 @@ final class SingleImageViewController: UIViewController {
     scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
   }
 }
+
+// MARK: - UIScrollViewDelegate
 
 extension SingleImageViewController: UIScrollViewDelegate {
   func viewForZooming(in scrollView: UIScrollView) -> UIView? {

@@ -1,8 +1,15 @@
 import UIKit
 
+// MARK: - GradientUIView
+
 final class GradientUIView: UIView {
+  
+  // MARK: - Private Properties
+  
   private let gradientLayer = CAGradientLayer()
-  private let maskLayer = CAShapeLayer() 
+  private let maskLayer = CAShapeLayer()
+  
+  // MARK: - Initializers
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -14,14 +21,18 @@ final class GradientUIView: UIView {
     setupGradient()
   }
   
+  // MARK: - Lifecycle Methods
+  
   override func layoutSubviews() {
     super.layoutSubviews()
     gradientLayer.frame = bounds
     updateMask()
   }
   
+  // MARK: - Private Methods
+  
   private func setupGradient() {
-    self.layer.addSublayer(gradientLayer)
+    layer.addSublayer(gradientLayer)
     gradientLayer.colors = [UIColor.clear.cgColor, UIColor.ypBlack.cgColor]
     gradientLayer.masksToBounds = true
   }
