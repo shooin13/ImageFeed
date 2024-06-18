@@ -13,8 +13,26 @@ final class AuthViewController: UIViewController {
   // MARK: - Private Properties
   
   private let showWebViewSegueIdentifier = "ShowWebView"
-  private var unsplashLogoImageView = UIImageView()
-  private var unsplashLogInButton = UIButton()
+  
+  private lazy var unsplashLogoImageView: UIImageView = {
+    let image = UIImageView()
+    image.image = UIImage(named: "unsplashLogoWhite")
+    image.translatesAutoresizingMaskIntoConstraints = false
+    return image
+  }()
+  
+  private lazy var unsplashLogInButton: UIButton = {
+    let button = UIButton()
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.addTarget(self, action: #selector(openWebViewController), for: .touchUpInside)
+    button.layer.cornerRadius = 16
+    button.layer.masksToBounds = true
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+    button.setTitleColor(UIColor(named: "YPBlack"), for: .normal)
+    button.setTitle("Войти", for: .normal)
+    button.backgroundColor = .white
+    return button
+  }()
   
   // MARK: - Public Properties
   
@@ -24,7 +42,8 @@ final class AuthViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    configureUI()
+    setupViews()
+    setupConstraints()
   }
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -33,48 +52,25 @@ final class AuthViewController: UIViewController {
   
   // MARK: - Private Methods
   
-  private func configureUI() {
-    configureView()
-    configureUnsplashLogInButton()
-    configureUnsplashLogoImageView()
+  private func setupViews() {
+    view.backgroundColor = UIColor(named: "YPBlack")
+    view.addSubview(unsplashLogoImageView)
+    view.addSubview(unsplashLogInButton)
     configureBackButton()
   }
   
-  private func configureView() {
-    view.backgroundColor = UIColor(named: "YPBlack")
-  }
-  
-  private func configureUnsplashLogoImageView() {
-    unsplashLogoImageView.image = UIImage(named: "unsplashLogoWhite")
-    unsplashLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(unsplashLogoImageView)
-    
+  private func setupConstraints() {
     NSLayoutConstraint.activate([
       unsplashLogoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
       unsplashLogoImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
       unsplashLogoImageView.widthAnchor.constraint(equalToConstant: 60),
-      unsplashLogoImageView.heightAnchor.constraint(equalTo: unsplashLogoImageView.widthAnchor)
-    ])
-  }
-  
-  private func configureUnsplashLogInButton() {
-    unsplashLogInButton.layer.cornerRadius = 16
-    unsplashLogInButton.layer.masksToBounds = true
-    unsplashLogInButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-    unsplashLogInButton.setTitleColor(UIColor(named: "YPBlack"), for: .normal)
-    unsplashLogInButton.setTitle("Войти", for: .normal)
-    unsplashLogInButton.backgroundColor = .white
-    unsplashLogInButton.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(unsplashLogInButton)
-    
-    NSLayoutConstraint.activate([
+      unsplashLogoImageView.heightAnchor.constraint(equalTo: unsplashLogoImageView.widthAnchor),
+      
       unsplashLogInButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -90),
       unsplashLogInButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16),
       unsplashLogInButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16),
       unsplashLogInButton.heightAnchor.constraint(equalToConstant: 48)
     ])
-    
-    unsplashLogInButton.addTarget(self, action: #selector(openWebViewController), for: .touchUpInside)
   }
   
   private func configureBackButton() {

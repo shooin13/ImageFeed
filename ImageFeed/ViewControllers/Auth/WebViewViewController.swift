@@ -21,14 +21,27 @@ final class WebViewViewController: UIViewController {
   // MARK: - Private Properties
   
   weak var delegate: WebViewViewControllerDelegate?
-  private var webView = WKWebView()
-  private var progressView = UIProgressView()
+  
+  private lazy var webView: WKWebView = {
+    let webView = WKWebView()
+    webView.translatesAutoresizingMaskIntoConstraints = false
+    return webView
+  }()
+  
+  private lazy var progressView: UIProgressView = {
+    let progress = UIProgressView()
+    progress.translatesAutoresizingMaskIntoConstraints = false
+    progress.tintColor = UIColor(named: "YPBlack")
+    return progress
+  }()
   
   // MARK: - Lifecycle Methods
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    configureUI()
+    //    configureWebView()
+    setupViews()
+    setupConstraints()
     loadAuthView()
     webView.navigationDelegate = self
   }
@@ -52,15 +65,32 @@ final class WebViewViewController: UIViewController {
       super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
     }
   }
+}
+
+// MARK: - WKNavigationDelegate
+
+extension WebViewViewController: WKNavigationDelegate {
+  func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    if let code = fetchCode(from: navigationAction.request.url) {
+      delegate?.webViewViewController(self, didAuthentificateWithCode: code)
+      decisionHandler(.cancel)
+    } else {
+      decisionHandler(.allow)
+    }
+  }
+}
+
+
+// MARK: - Private Methods
+
+private extension WebViewViewController {
   
-  // MARK: - Private Methods
-  
-  private func updateProgress() {
+  func updateProgress() {
     progressView.progress = Float(webView.estimatedProgress)
     progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
   }
   
-  private func loadAuthView() {
+  func loadAuthView() {
     guard var urlComponents = URLComponents(string: WebViewConstants.unsplashAuthorizeURLString) else { return }
     
     urlComponents.queryItems = [
@@ -76,17 +106,18 @@ final class WebViewViewController: UIViewController {
     webView.load(request)
   }
   
-  private func configureUI() {
-    configureWebView()
-    configureUIProgressView()
+  func setupViews() {
+    view.addSubview(progressView)
+    view.addSubview(webView)
   }
   
-  private func configureWebView() {
-    webView.translatesAutoresizingMaskIntoConstraints = false
-    
-    view.addSubview(webView)
-    
+  func setupConstraints() {
     NSLayoutConstraint.activate([
+      progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+      progressView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+      progressView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+      progressView.heightAnchor.constraint(equalToConstant: 2),
+      
       webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       webView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
       webView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -94,39 +125,12 @@ final class WebViewViewController: UIViewController {
     ])
   }
   
-  private func configureUIProgressView() {
-    progressView.tintColor = UIColor(named: "YPBlack")
-    progressView.translatesAutoresizingMaskIntoConstraints = false
-    
-    view.addSubview(progressView)
-    
-    NSLayoutConstraint.activate([
-      progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      progressView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-      progressView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-      progressView.heightAnchor.constraint(equalToConstant: 2)
-    ])
-  }
-  
-  private func fetchCode(from url: URL?) -> String? {
+  func fetchCode(from url: URL?) -> String? {
     guard
       let url = url,
       let urlComponents = URLComponents(string: url.absoluteString),
       urlComponents.path == "/oauth/authorize/native",
       let item = urlComponents.queryItems?.first(where: { $0.name == "code" }) else { return nil }
     return item.value
-  }
-}
-
-// MARK: - WKNavigationDelegate
-
-extension WebViewViewController: WKNavigationDelegate {
-  func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-    if let code = fetchCode(from: navigationAction.request.url) {
-      delegate?.webViewViewController(self, didAuthentificateWithCode: code)
-      decisionHandler(.cancel)
-    } else {
-      decisionHandler(.allow)
-    }
   }
 }

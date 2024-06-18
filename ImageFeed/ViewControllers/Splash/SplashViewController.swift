@@ -6,15 +6,22 @@ final class SplashViewController: UIViewController {
   
   // MARK: - Private Properties
   
-  private var unsplashLogoImageView = UIImageView()
   private let storage = OAuth2TokenStorage()
+  
+  private lazy var unsplashLogoImageView: UIImageView = {
+    let image = UIImageView()
+    image.image = UIImage(named: "unsplashLogoWhite")
+    image.translatesAutoresizingMaskIntoConstraints = false
+    return image
+  }()
   
   // MARK: - Lifecycle Methods
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    configureUI()
+    setupViews()
+    setupConstraints()
     
     if storage.token != nil {
       switchToTabBarController()
@@ -42,6 +49,20 @@ final class SplashViewController: UIViewController {
   
   // MARK: - Private Methods
   
+  private func setupViews() {
+    view.backgroundColor = UIColor(named: "YPBlack")
+    view.addSubview(unsplashLogoImageView)
+  }
+  
+  private func setupConstraints() {
+    NSLayoutConstraint.activate([
+      unsplashLogoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+      unsplashLogoImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+      unsplashLogoImageView.widthAnchor.constraint(equalToConstant: 60),
+      unsplashLogoImageView.heightAnchor.constraint(equalTo: unsplashLogoImageView.widthAnchor)
+    ])
+  }
+  
   private func switchToTabBarController() {
     guard let window = UIApplication.shared.windows.first else {
       assertionFailure("Invalid window configuration")
@@ -50,29 +71,6 @@ final class SplashViewController: UIViewController {
     
     let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
     window.rootViewController = tabBarController
-  }
-  
-  private func configureUI() {
-    configureView()
-    configureUnsplashLogoImageView()
-  }
-  
-  private func configureView() {
-    view.backgroundColor = UIColor(named: "YPBlack")
-  }
-  
-  private func configureUnsplashLogoImageView() {
-    unsplashLogoImageView.image = UIImage(named: "unsplashLogoWhite")
-    unsplashLogoImageView.translatesAutoresizingMaskIntoConstraints = false
-    
-    view.addSubview(unsplashLogoImageView)
-    
-    NSLayoutConstraint.activate([
-      unsplashLogoImageView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-      unsplashLogoImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-      unsplashLogoImageView.widthAnchor.constraint(equalToConstant: 60),
-      unsplashLogoImageView.heightAnchor.constraint(equalTo: unsplashLogoImageView.widthAnchor)
-    ])
   }
 }
 
