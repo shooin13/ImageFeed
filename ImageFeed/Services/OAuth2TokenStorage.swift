@@ -4,10 +4,6 @@ import Foundation
 
 final class OAuth2TokenStorage {
   
-  // MARK: - Private Properties
-  
-  private let tokenKey = "OAuth2Token"
-  
   // MARK: - Public Properties
   
   var token: String? {
@@ -18,4 +14,9 @@ final class OAuth2TokenStorage {
       UserDefaults.standard.setValue(newValue, forKey: tokenKey)
     }
   }
+  
+  // MARK: - Private Properties
+  
+  private let tokenKey = "OAuth2Token"
+  
 }
