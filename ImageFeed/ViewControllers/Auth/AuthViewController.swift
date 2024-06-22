@@ -1,4 +1,5 @@
 import UIKit
+import ProgressHUD
 
 // MARK: - AuthViewControllerDelegate
 
@@ -103,10 +104,12 @@ final class AuthViewController: UIViewController {
 extension AuthViewController: WebViewViewControllerDelegate {
   func webViewViewController(_ vc: WebViewViewController, didAuthentificateWithCode code: String) {
     vc.dismiss(animated: true)
+    ProgressHUD.animate()
     
     OAuth2Service.shared.fetchOAuthToken(code: code) { result in
       switch result {
       case .success(_):
+        ProgressHUD.dismiss()
         self.delegate?.didAuthenticate(self)
       case .failure(let error):
         print("Failed to fetch OAuth token: \(error)")
