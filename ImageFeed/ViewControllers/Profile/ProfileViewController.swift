@@ -1,5 +1,5 @@
 import UIKit
-import Kingfisher // Assuming you're using Kingfisher for image downloading and caching
+import Kingfisher
 
 // MARK: - ProfileViewController
 
