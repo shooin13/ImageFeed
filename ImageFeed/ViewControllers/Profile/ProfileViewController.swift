@@ -24,7 +24,6 @@ final class ProfileViewController: UIViewController {
   
   private lazy var nameLabel: UILabel = {
     let label = UILabel()
-    label.text = "Павел Николаев"
     label.font = UIFont.boldSystemFont(ofSize: 23)
     label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +32,6 @@ final class ProfileViewController: UIViewController {
   
   private lazy var nickLabel: UILabel = {
     let label = UILabel()
-    label.text = "@the314"
     label.font = UIFont.systemFont(ofSize: 13)
     label.textColor = UIColor(red: 174/255, green: 175/255, blue: 180/255, alpha: 1)
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -42,12 +40,13 @@ final class ProfileViewController: UIViewController {
   
   private lazy var userTextLabel: UILabel = {
     let label = UILabel()
-    label.text = "Hello, Praktikum"
     label.font = UIFont.systemFont(ofSize: 13)
     label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
+  
+  private let profileService = ProfileService()
   
   // MARK: - Lifecycle Methods
   
@@ -55,6 +54,7 @@ final class ProfileViewController: UIViewController {
     super.viewDidLoad()
     setupViews()
     setupConstraints()
+    updateProfileDetails()
   }
   
   // MARK: - Private Methods
@@ -88,6 +88,17 @@ final class ProfileViewController: UIViewController {
       userTextLabel.topAnchor.constraint(equalTo: nickLabel.bottomAnchor, constant: 8),
       userTextLabel.leadingAnchor.constraint(equalTo: profileImageView.leadingAnchor)
     ])
-    
+  }
+  
+  private func updateProfileDetails() {
+    if let profile = profileService.profile {
+      updateProfileDetails(profile: profile)
+    }
+  }
+  
+  private func updateProfileDetails(profile: Profile) {
+    nameLabel.text = profile.name
+    nickLabel.text = profile.loginName
+    userTextLabel.text = profile.bio
   }
 }

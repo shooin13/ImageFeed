@@ -15,6 +15,8 @@ final class SplashViewController: UIViewController {
     return image
   }()
   
+  private let profileService = ProfileService()
+  
   // MARK: - Lifecycle Methods
   
   override func viewDidAppear(_ animated: Bool) {
@@ -72,6 +74,12 @@ final class SplashViewController: UIViewController {
     let tabBarController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
     window.rootViewController = tabBarController
   }
+  
+  private func showErrorFetchingProfileAlert() {
+    let alert = UIAlertController(title: "Error", message: "Failed to fetch profile. Please try again.", preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    present(alert, animated: true, completion: nil)
+  }
 }
 
 // MARK: - AuthViewControllerDelegate
@@ -80,6 +88,28 @@ extension SplashViewController: AuthViewControllerDelegate {
   func didAuthenticate(_ vc: AuthViewController) {
     vc.dismiss(animated: true) {
       self.switchToTabBarController()
+    }
+    
+    guard let token = storage.token else {
+      return
+    }
+    fetchProfile(token)
+  }
+  
+  private func fetchProfile(_ token: String) {
+    UIBlockingProgressHUD.show()
+    profileService.fetchProfile(token) { [weak self] result in
+      UIBlockingProgressHUD.dismiss()
+      
+      guard let self = self else { return }
+      
+      switch result {
+      case .success:
+        self.switchToTabBarController()
+        
+      case .failure:
+        self.showErrorFetchingProfileAlert()
+      }
     }
   }
 }

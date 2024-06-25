@@ -10,6 +10,9 @@
 		5716FDA12C20C52F00C8209B /* SnakeCaseJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5716FDA02C20C52F00C8209B /* SnakeCaseJSONDecoder.swift */; };
 		571B88D02BE6993200CBFB5E /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571B88CF2BE6993200CBFB5E /* ImagesListCell.swift */; };
 		5736BAAA2C27458B00B972C7 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5736BAA92C27458B00B972C7 /* UIBlockingProgressHUD.swift */; };
+		5736BAAC2C274F7400B972C7 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5736BAAB2C274F7400B972C7 /* ProfileService.swift */; };
+		5736BAAE2C274FD700B972C7 /* ProfileResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5736BAAD2C274FD700B972C7 /* ProfileResult.swift */; };
+		5736BAB42C2753E900B972C7 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5736BAB32C2753E900B972C7 /* Profile.swift */; };
 		573E00AF2C1F31E200C97C9E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573E00AE2C1F31E200C97C9E /* SplashViewController.swift */; };
 		573F2DC62BE576AF00EE0D3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F2DC52BE576AF00EE0D3B /* AppDelegate.swift */; };
 		573F2DC82BE576AF00EE0D3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573F2DC72BE576AF00EE0D3B /* SceneDelegate.swift */; };
@@ -34,6 +37,9 @@
 		5716FDA02C20C52F00C8209B /* SnakeCaseJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeCaseJSONDecoder.swift; sourceTree = "<group>"; };
 		571B88CF2BE6993200CBFB5E /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		5736BAA92C27458B00B972C7 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
+		5736BAAB2C274F7400B972C7 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		5736BAAD2C274FD700B972C7 /* ProfileResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResult.swift; sourceTree = "<group>"; };
+		5736BAB32C2753E900B972C7 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		573E00AE2C1F31E200C97C9E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		573F2DC22BE576AF00EE0D3B /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		573F2DC52BE576AF00EE0D3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				57AD520F2C1F0ECF0072DECE /* OAuthTokenResponseBody.swift */,
+				5736BAAD2C274FD700B972C7 /* ProfileResult.swift */,
+				5736BAB32C2753E900B972C7 /* Profile.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -187,6 +195,7 @@
 			children = (
 				57AD52092C1EFE050072DECE /* OAuth2Service.swift */,
 				57AD52112C1F0F630072DECE /* OAuth2TokenStorage.swift */,
+				5736BAAB2C274F7400B972C7 /* ProfileService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -269,7 +278,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				574A33702C15C2FA0056BDF9 /* WebViewViewController.swift in Sources */,
+				5736BAB42C2753E900B972C7 /* Profile.swift in Sources */,
 				57EA29F02BFFB2DA007E73FF /* ProfileViewController.swift in Sources */,
+				5736BAAE2C274FD700B972C7 /* ProfileResult.swift in Sources */,
 				573F2DCA2BE576AF00EE0D3B /* ImagesListViewController.swift in Sources */,
 				5716FDA12C20C52F00C8209B /* SnakeCaseJSONDecoder.swift in Sources */,
 				57AD520A2C1EFE050072DECE /* OAuth2Service.swift in Sources */,
@@ -279,6 +290,7 @@
 				577FCE662BFFD304006B4636 /* SingleImageViewController.swift in Sources */,
 				577D05A22BE6BC8B00874169 /* GradientUIView.swift in Sources */,
 				573E00AF2C1F31E200C97C9E /* SplashViewController.swift in Sources */,
+				5736BAAC2C274F7400B972C7 /* ProfileService.swift in Sources */,
 				573F2DC62BE576AF00EE0D3B /* AppDelegate.swift in Sources */,
 				57AD520E2C1F0A4E0072DECE /* URLSession+data.swift in Sources */,
 				573F2DC82BE576AF00EE0D3B /* SceneDelegate.swift in Sources */,
