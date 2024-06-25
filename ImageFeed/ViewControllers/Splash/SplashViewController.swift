@@ -26,7 +26,7 @@ final class SplashViewController: UIViewController {
     setupConstraints()
     
     if storage.token != nil {
-      switchToTabBarController()
+      fetchProfileAndProceed()
     } else {
       performSegue(withIdentifier: "showAuthenticationScreen", sender: nil)
     }
@@ -80,6 +80,27 @@ final class SplashViewController: UIViewController {
     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
     present(alert, animated: true, completion: nil)
   }
+  
+  private func fetchProfileAndProceed() {
+    guard let token = storage.token else {
+      return
+    }
+    UIBlockingProgressHUD.show()
+    profileService.fetchProfile(token) { [weak self] result in
+      UIBlockingProgressHUD.dismiss()
+      
+      guard let self = self else { return }
+      
+      switch result {
+      case .success(let profile):
+        ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
+        self.switchToTabBarController()
+        
+      case .failure:
+        self.showErrorFetchingProfileAlert()
+      }
+    }
+  }
 }
 
 // MARK: - AuthViewControllerDelegate
@@ -93,23 +114,6 @@ extension SplashViewController: AuthViewControllerDelegate {
     guard let token = storage.token else {
       return
     }
-    fetchProfile(token)
-  }
-  
-  private func fetchProfile(_ token: String) {
-    UIBlockingProgressHUD.show()
-    profileService.fetchProfile(token) { [weak self] result in
-      UIBlockingProgressHUD.dismiss()
-      
-      guard let self = self else { return }
-      
-      switch result {
-      case .success:
-        self.switchToTabBarController()
-        
-      case .failure:
-        self.showErrorFetchingProfileAlert()
-      }
-    }
+    fetchProfileAndProceed()
   }
 }

@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher // Assuming you're using Kingfisher for image downloading and caching
 
 // MARK: - ProfileViewController
 
@@ -47,6 +48,23 @@ final class ProfileViewController: UIViewController {
   }()
   
   private let profileService = ProfileService()
+  private var profileImageServiceObserver: NSObjectProtocol?
+  
+  // MARK: - Initializers
+  
+  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    addObserver()
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+    addObserver()
+  }
+  
+  deinit {
+    removeObserver()
+  }
   
   // MARK: - Lifecycle Methods
   
@@ -54,6 +72,18 @@ final class ProfileViewController: UIViewController {
     super.viewDidLoad()
     setupViews()
     setupConstraints()
+    
+    profileImageServiceObserver = NotificationCenter.default
+      .addObserver(
+        forName: ProfileImageService.didChangeNotification,
+        object: nil,
+        queue: .main
+      ) { [weak self] _ in
+        guard let self = self else { return }
+        self.updateAvatar()
+      }
+    updateAvatar()
+    
     updateProfileDetails()
   }
   
@@ -96,9 +126,44 @@ final class ProfileViewController: UIViewController {
     }
   }
   
-  private func updateProfileDetails(profile: Profile) {
+  private func updateProfileDetails(profile: UserProfile) {
     nameLabel.text = profile.name
     nickLabel.text = profile.loginName
     userTextLabel.text = profile.bio
+  }
+  
+  private func addObserver() {
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(updateAvatar(notification:)),
+      name: ProfileImageService.didChangeNotification,
+      object: nil)
+  }
+  
+  private func removeObserver() {
+    if let observer = profileImageServiceObserver {
+      NotificationCenter.default.removeObserver(observer)
+    }
+  }
+  
+  @objc
+  private func updateAvatar(notification: Notification) {
+    guard
+      isViewLoaded,
+      let userInfo = notification.userInfo,
+      let profileImageURL = userInfo["URL"] as? String,
+      let url = URL(string: profileImageURL)
+    else { return }
+    
+    profileImageView.kf.setImage(with: url)
+  }
+  
+  private func updateAvatar() {
+    guard
+      let profileImageURL = ProfileImageService.shared.avatarURL,
+      let url = URL(string: profileImageURL)
+    else { return }
+    
+    profileImageView.kf.setImage(with: url)
   }
 }
